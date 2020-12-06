@@ -5,12 +5,17 @@ const { APP_SECRET, getUserId } = require('../utils');
 function post(parent, args, context, info) {
   const { userId } = context;
 
+  let data = {
+    url: args.url,
+    description: args.description,
+  }
+
+  if (userId !== null) {
+    data[postedBy] = { connect: { id: userId } }
+  }
+
   const newLink = context.prisma.link.create({
-    data: {
-      url: args.url,
-      description: args.description,
-      postedBy: { connect: { id: userId } }
-    }
+    data: data
   });
   context.pubsub.publish('NEW_LINK', newLink);
 
