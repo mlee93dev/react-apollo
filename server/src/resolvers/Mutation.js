@@ -11,7 +11,7 @@ function post(parent, args, context, info) {
   }
 
   if (userId !== null) {
-    data[postedBy] = { connect: { id: userId } }
+    data['postedBy'] = { connect: { id: userId } }
   }
 
   const newLink = context.prisma.link.create({
