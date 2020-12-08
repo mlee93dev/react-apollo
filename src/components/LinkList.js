@@ -27,6 +27,7 @@ export const FEED_QUERY = gql`
             id
           }
         }
+        createdAt
       }
       count
     }
