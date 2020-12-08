@@ -11,7 +11,6 @@ export const FEED_QUERY = gql`
     $orderBy: LinkOrderByInput
   ) {
     feed(take: $take, skip: $skip, orderBy: $orderBy) {
-      id
       links {
         id
         url
@@ -96,6 +95,7 @@ const getQueryVariables = (isNewPage, page) => {
   const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
   const take = isNewPage ? LINKS_PER_PAGE : 100;
   const orderBy = { createdAt: 'desc' };
+  // console.log(skip, take)
   return { take, skip, orderBy };
 };
 
@@ -117,7 +117,7 @@ const LinkList = () => {
     data,
     loading,
     error,
-    subscribeToMore
+    subscribeToMore,
   } = useQuery(FEED_QUERY, {
     variables: getQueryVariables(isNewPage, page)
   });
@@ -165,7 +165,7 @@ const LinkList = () => {
             <div className="flex ml4 mv3 gray">
               <div
                 className="pointer mr2"
-                onClick={() => {
+                onClick={async () => {
                   if (page > 1) {
                     history.push(`/new/${page - 1}`);
                   }

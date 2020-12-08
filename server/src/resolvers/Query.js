@@ -7,6 +7,8 @@ async function feed(parent, args, context, info) {
         ]
       }
     : {};
+  
+  // console.log(args.skip, args.take)
 
   const links = await context.prisma.link.findMany({
     where,
