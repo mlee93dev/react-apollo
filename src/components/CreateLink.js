@@ -8,11 +8,13 @@ const CREATE_LINK_MUTATION = gql`
   mutation PostMutation(
     $description: String!
     $url: String!
+    $category: String
   ) {
-    post(description: $description, url: $url) {
+    post(description: $description, url: $url, category: $category) {
       id
       url
       description
+      category
     }
   }
 `;
@@ -21,12 +23,14 @@ const CreateLink = () => {
   const history = useHistory();
   const [formState, setFormState] = useState({
     description: '',
-    url: ''
+    url: '',
+    category: ''
   });
   const [createLink] = useMutation(CREATE_LINK_MUTATION, {
     variables: {
       description: formState.description,
-      url: formState.url
+      url: formState.url,
+      category: formState.category
     },
     update: (cache, { data: { post } }) => {
       const take = LINKS_PER_PAGE;
@@ -90,6 +94,18 @@ const CreateLink = () => {
             }
             type="text"
             placeholder="The URL for the link"
+          />
+          <input
+            className="mb2"
+            value={formState.category}
+            onChange={(e) =>
+              setFormState({
+                ...formState,
+                category: e.target.value
+              })
+            }
+            type="text"
+            placeholder="The category for the link"
           />
         </div>
         <button type="submit">Submit</button>

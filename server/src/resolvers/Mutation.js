@@ -9,9 +9,11 @@ function post(parent, args, context, info) {
     data: {
       url: args.url,
       description: args.description,
+      category: args.category,
       postedBy: { connect: { id: userId } }
     }
   });
+
   context.pubsub.publish('NEW_LINK', newLink);
 
   return newLink;
