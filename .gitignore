@@ -27,3 +27,8 @@ graphql.schema.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# local dev
+/server/datamodel.prisma
+/server/docker-compose.yml
+/server/prisma.yml
